@@ -1,0 +1,50 @@
+name: Preprocess Dataset
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - "preprocessing/**"
+      - ".github/workflows/preprocess.yml"
+  workflow_dispatch: {}   # bisa run manual dari tab Actions
+
+jobs:
+  build-preprocessed-dataset:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12.7
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12.7"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas scikit-learn
+
+      - name: Check env
+        run: |
+          python -V
+          pip list
+
+      # Jika data mentah disimpan di repo: pastikan filenya ada.
+      # (kalau ingin download dari sumber lain, tambah step download di sini)
+
+      - name: Run preprocessing CLI
+        run: |
+          python preprocessing/automate_Dhiaz.py \
+            --articles namadataset_raw/articles.csv \
+            --inter namadataset_raw/interactions.csv \
+            --out_dir preprocessing/namadataset_preprocessing
+
+      - name: Upload preprocessed dataset artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: namadataset_preprocessing
+          path: preprocessing/namadataset_preprocessing
+          if-no-files-found: error
+          retention-days: 14
