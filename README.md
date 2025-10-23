@@ -6,4 +6,4 @@ Eksplorasi & preprocessing untuk sistem rekomendasi artikel (AG News + interaksi
 - Output: `preprocessing/namadataset_preprocessing/`
 - Raw: `namadataset_raw/`
 
-![Preprocess Dataset](https://github.com/<user>/Eksperimen_SML_Dhiaz/actions/workflows/preprocess.yml/badge.svg)
+![Preprocess Dataset](https://github.com/unyftpte/Eksperimen_SML_Dhiaz/actions/workflows/preprocess.yml/badge.svg)
